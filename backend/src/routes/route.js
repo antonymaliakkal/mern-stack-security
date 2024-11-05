@@ -1,5 +1,5 @@
 const express = require('express')
-const { register , login } = require('../controller/authController')
+const { register , login, hello } = require('../controller/authController')
 const auth = require('../middlewares/middleAuth')
 
 
@@ -11,5 +11,7 @@ router.post('/login' , login)
 router.get('/protected' , auth , (req,res) => {
     res.send("Access granted!!!")
 });
+
+router.post('/hello' , hello)
 
 module.exports = router;
