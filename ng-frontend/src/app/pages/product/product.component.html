@@ -1,0 +1,24 @@
+<!-- <div class="flex h-screen">
+    <app-product-list class="flex-none" (selectedProduct)="onItemSelected($event)" ></app-product-list>
+    <div class="flex flex-col flex-grow">
+        <app-navbar class="flex-none"></app-navbar>
+        <main class="flex-grow p-4 overflow-auto">
+        <app-product-description [selectedProductId]="selectedItem" ></app-product-description>    
+        </main>
+    </div>
+    
+</div>
+
+ -->
+
+
+<div class="flex flex-col">
+    <div>
+        <app-navbar></app-navbar>    
+    </div>
+    <div class="flex">
+        <app-product-list (selectedProduct)="onItemSelected($event)"></app-product-list>
+        <app-product-description [selectedProductId]="selectedItem" class="w-full" ></app-product-description>
+    </div>
+
+</div>

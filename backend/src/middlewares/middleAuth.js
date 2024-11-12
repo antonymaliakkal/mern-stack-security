@@ -5,20 +5,19 @@ const auth = (req , res , next) => {
     // const token = req.header('x-auth-token');
     // console.log(token)
 
-    console.log(req.rawHeaders[1])
+    console.log('From jwt checking page line 8 : ' , req.headers['authorization'])
     
-    // const authHeader = req.header['authorization'];
-    const authHeader = req.rawHeaders[1];
+    const authHeader = req.headers['authorization'];
 
-    console.log('authHeader')
+    // console.log('req : ' , req )
     const token = authHeader && authHeader.split(' ')[1];
-
+    console.log('From jwt checking page line 14 : ' ,token)
     if(!token) return res.status(401).json({ message : 'No token , authrization deniend' })
 
     try {
-        
+        console.log('From jwt checking page line 18 : ' ,jwt.verify(token , process.env.JWT_SECRET))
         jwt.verify(token , process.env.JWT_SECRET , (err,user) => {
-            if(err) return res.status(403).send("Access denied, invalid token")
+            if(err) return res.status(403).send({message : "Access denied, invalid token"})
             req.user = user;
             next(); 
         })

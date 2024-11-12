@@ -37,17 +37,20 @@ const hello = async(req , res) => {
 
 const login = async(req , res) => {
 
-    console.log(req.headers['authorization'])
+    console.log('From Login page line 40 : ' , req.headers['authorization'])
 
     const { email,password } = req.body;
+    
 
     //check is user exists
-    console.log(users)
+    console.log('From Login page line 46 : ' , users)
+    console.log(email , password)
     const exsistingUser = users.find(user => user.email === email);
     if(!exsistingUser) return res.status(400).json({ message : 'User not found' })
 
     //decrpyt the password and check
     const isMatch = await bcrypt.compare(password , exsistingUser.password);
+    console.log('From Login page line 53 : ' ,isMatch)
     if(!isMatch) return res.status(400).json({ message : 'Invalid password' })
 
     //create token

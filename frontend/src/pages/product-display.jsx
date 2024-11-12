@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import ProductList from "../components/product-list"
 import ProductDetial from "../components/product-detials"
+import Navi from "../components/navbar"
+import axios from "../axios/axios"
 
 const Products = () => {
 
@@ -19,18 +21,36 @@ const Products = () => {
 
     } , [])
 
-    const handleProductSelection = (product) => {
+    const handleProductSelection = async (product) => {
         setSelectedProduct(product)
+
+        try {
+            
+            const response = await axios.get("/get-product-name");
+            console.log('hii' , response.data)
+
+        } catch (error) {
+            
+        }
+
     };
 
     
 
 
     return(
-        <div>
-            <ProductList products={products} selectProduct={handleProductSelection}></ProductList>
-            <ProductDetial product={selectedProduct}></ProductDetial>
+        <div className="flex h-screen">
+            <ProductList className="flex-none" products={products} selectProduct={handleProductSelection}></ProductList>
+            <div className="flex flex-col flex-grow">
+                <Navi className="flex-none" ></Navi>
+                <main className="flex-grow p-4 overflow-auto">
+                <ProductDetial product={selectedProduct}></ProductDetial>
+                </main>
+            </div>
+            
         </div>
+
+
     )
 
 }

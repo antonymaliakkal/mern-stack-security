@@ -6,6 +6,7 @@ import Login from './components/login'
 import Home from './components/home'
 import { useEffect } from 'react'
 import Products from './pages/product-display'
+import Navi from './components/navbar'
 
 
 function App() {
@@ -23,13 +24,16 @@ function App() {
   const isAuthenticated = () => localStorage.getItem('token');
 
   return (  
+      <div>
+        {/* <Navi></Navi> */}
       <Routes>
         <Route path='/register' element={<Register/>} />
         <Route path='/login' element={<Login></Login>} />
         <Route path='/home' element = {isAuthenticated() ? <Home></Home> : <Navigate to='/login' />} />
         <Route path='/products' element={<Products />} />
+        <Route path='/navbar' element={<Navi></Navi>} />
       </Routes>
-
+      </div>
   ); 
 }; 
 
