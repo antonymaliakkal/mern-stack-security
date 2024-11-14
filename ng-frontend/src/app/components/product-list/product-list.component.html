@@ -15,9 +15,9 @@
 
           <li
             *ngFor="let product of productList"
-            class="flex items-center p-2 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            class="flex items-center p-2 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group cursor-pointer"
             (click)="onSelection(product)"  
-            [class.bg-indigo-200] = "product === highlightedIitem"
+            [class.bg-red-400] = "product === highlightedIitem"
           >
             {{ product.name }}
           </li>

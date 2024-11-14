@@ -3,7 +3,7 @@ import { AuthService } from '../../services/auth-service.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../navbar/navbar.component";
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class RegisterComponent {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService , private router:Router) {
     this.registerForm = this.fb.group({
       username : [''],
       email: ['', [Validators.required, Validators.email]],
@@ -31,6 +31,7 @@ export class RegisterComponent {
         (response) => console.log(response),
         (error) => console.error(error)
       );
+      this.router.navigate(['/login'])
     } else {
       console.log('Form is not valid');
     }
