@@ -2,10 +2,12 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { SessionService } from '../services/session-service.service';
 import* as jwt from 'jwt-decode'
+import { AuthService } from '../services/auth-service.service';
 
 export const AuthGuard: CanActivateFn = (route, state) => {
   
   const sessionService = inject(SessionService);
+  const authService = inject(AuthService)
   const router = inject(Router);
 
 
@@ -17,7 +19,7 @@ export const AuthGuard: CanActivateFn = (route, state) => {
     return false;
   }
   else {
-    if(token && isTokenValid(token)){
+    if(token && authService.isTokenValid(token)){
       return true;
     }
     else{
@@ -27,21 +29,4 @@ export const AuthGuard: CanActivateFn = (route, state) => {
   }
 
 
-
-
 };
-
-function isTokenValid(token:string) {
-  try {
-    
-    const decoded: any = jwt.jwtDecode(token);
-    const expiryDate = new Date(0);
-    expiryDate.setUTCSeconds(decoded.exp)
-    return expiryDate > new Date();
-
-  } catch (error) {
-    console.error('Error decoding token', error);
-    return false;
-
-  }
-}

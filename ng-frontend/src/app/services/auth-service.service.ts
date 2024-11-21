@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import* as jwt from 'jwt-decode'
+
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +30,25 @@ export class AuthService {
     });
 
   }
+
+
+  isTokenValid(token:string) {
+    if(token === '') return false
+    try {
+      
+      const decoded: any = jwt.jwtDecode(token);
+      const expiryDate = new Date(0);
+      expiryDate.setUTCSeconds(decoded.exp)
+      return expiryDate > new Date();
+  
+    } catch (error) {
+      console.error('Error decoding token', error);
+      return false;
+  
+    }
+  }
+
+
+
 
 }
